@@ -10,6 +10,8 @@ export default function ControlPanel({
   totalSize,
   isConverting,
   hasPdf,
+  pdfFileName,
+  onPdfFileNameChange,
   onConvert,
   onClear,
   onDownload,
@@ -26,6 +28,26 @@ export default function ControlPanel({
           <span>Total size</span>
           <strong>{formatTotalSize(totalSize)}</strong>
         </div>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="pdf-file-name" style={{ display: 'block', fontSize: '0.85rem', color: '#6b7280', marginBottom: '0.25rem' }}>
+          PDF file name
+        </label>
+        <input
+          id="pdf-file-name"
+          type="text"
+          value={pdfFileName}
+          onChange={(event) => onPdfFileNameChange?.(event.target.value)}
+          placeholder="e.g. receipts-2025"
+          style={{
+            width: '100%',
+            borderRadius: '0.5rem',
+            border: '1px solid #d1d5db',
+            padding: '0.55rem 0.7rem',
+            fontSize: '0.9rem',
+          }}
+        />
       </div>
 
       <button
