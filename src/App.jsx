@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FileText } from 'lucide-react';
 import UploadArea from './components/UploadArea';
-import ImagePreviewGrid from './components/ImagePreviewGrid';
+import ImageGrid from './components/ImageGrid';
 import ControlPanel from './components/ControlPanel';
 import { useImageManager } from './hooks/useImageManager';
 import { generatePdfFromImages } from './utils/pdfGenerator';
@@ -42,11 +42,15 @@ function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <div className="title-wrap">
-          <FileText size={22} />
-          <div>
-            <h1>Image to PDF Converter</h1>
-            <p>Upload, sort, and export your images into a single PDF document.</p>
+        <div className="header-card">
+          <div className="title-wrap">
+            <div className="header-icon">
+              <FileText size={20} />
+            </div>
+            <div>
+              <h1>Image to PDF Converter</h1>
+              <p>Upload, sort, and export your images into a single PDF document.</p>
+            </div>
           </div>
         </div>
       </header>
@@ -54,14 +58,7 @@ function App() {
       <main className="app-main">
         <div className="main-column">
           <UploadArea onFilesAdded={addFiles} />
-          {images.length > 0 ? (
-            <ImagePreviewGrid images={images} onRemove={removeImage} onReorder={reorderImages} />
-          ) : (
-            <section className="empty-state">
-              <h3>No images uploaded yet</h3>
-              <p>Add one or more images to prepare your PDF document.</p>
-            </section>
-          )}
+          <ImageGrid images={images} onRemove={removeImage} onReorder={reorderImages} />
         </div>
 
         <ControlPanel
