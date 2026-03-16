@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://image2pdf-xi.vercel.app/sitemap.xml
 
