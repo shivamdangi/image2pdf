@@ -10,6 +10,8 @@ export default defineConfig({
       routes: [
         "/",
         "/image-to-pdf",
+        "/pdf-to-images",
+        "/merge-pdfs",
         "/jpg-to-pdf",
         "/png-to-pdf",
         "/webp-to-pdf",

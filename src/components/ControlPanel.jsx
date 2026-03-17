@@ -31,7 +31,15 @@ export default function ControlPanel({
       </div>
 
       <div className="mb-3">
-        <label htmlFor="pdf-file-name" style={{ display: 'block', fontSize: '0.85rem', color: '#6b7280', marginBottom: '0.25rem' }}>
+        <label
+          htmlFor="pdf-file-name"
+          style={{
+            display: 'block',
+            fontSize: '0.85rem',
+            color: 'var(--muted)',
+            marginBottom: '0.25rem',
+          }}
+        >
           PDF file name
         </label>
         <input
@@ -40,13 +48,7 @@ export default function ControlPanel({
           value={pdfFileName}
           onChange={(event) => onPdfFileNameChange?.(event.target.value)}
           placeholder="e.g. receipts-2025"
-          style={{
-            width: '100%',
-            borderRadius: '0.5rem',
-            border: '1px solid #d1d5db',
-            padding: '0.55rem 0.7rem',
-            fontSize: '0.9rem',
-          }}
+          className="subtle-input"
         />
       </div>
 

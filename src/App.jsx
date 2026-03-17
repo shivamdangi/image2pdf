@@ -1,6 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import SeoPageLayout from './components/SeoPageLayout';
 import ImageToPdfTool from './components/ImageToPdfTool';
+import Home from './pages/Home';
+import PdfToImagesTool from './components/PdfToImagesTool';
+import MergePdfsTool from './components/MergePdfsTool';
 
 function App() {
   return (
@@ -10,13 +13,14 @@ function App() {
           path="/"
           element={(
             <SeoPageLayout
-              title="Free Image to PDF Converter – Convert Images to PDF Online"
-              description="Convert JPG, PNG, and WEBP images to PDF instantly in your browser. Free image to PDF converter with drag-and-drop reordering and no file uploads."
+              title="Free PDF & Image Tools – Convert, Split, Merge"
+              description="A clean set of privacy-friendly PDF and image tools that run entirely in your browser. Convert images to PDF, extract PDF pages as images, and merge PDFs."
               canonicalPath="/"
-              heading="Free Image to PDF Converter"
-              toolLabel="Upload, reorder, and merge images into a single PDF document directly in your browser."
+              heading="PDF & Image Toolkit"
+              toolLabel="Fast, local-first tools for PDFs and images. No uploads."
+              hideDefaultSeo
             >
-              <ImageToPdfTool />
+              <Home />
             </SeoPageLayout>
           )}
         />
@@ -92,6 +96,38 @@ function App() {
               toolLabel="Upload multiple images and merge them into one neatly ordered PDF."
             >
               <ImageToPdfTool />
+            </SeoPageLayout>
+          )}
+        />
+
+        <Route
+          path="/pdf-to-images"
+          element={(
+            <SeoPageLayout
+              title="PDF to Images – Export Pages as PNG"
+              description="Convert a PDF into images (one PNG per page) directly in your browser. No uploads. Download pages individually or all at once."
+              canonicalPath="/pdf-to-images"
+              heading="PDF to Images"
+              toolLabel="Turn PDF pages into crisp PNG images—locally in your browser."
+              hideDefaultSeo
+            >
+              <PdfToImagesTool />
+            </SeoPageLayout>
+          )}
+        />
+
+        <Route
+          path="/merge-pdfs"
+          element={(
+            <SeoPageLayout
+              title="Merge PDFs – Combine Multiple PDFs"
+              description="Merge multiple PDF files into one in your browser. Reorder files, then export a single merged PDF."
+              canonicalPath="/merge-pdfs"
+              heading="Merge PDFs"
+              toolLabel="Combine multiple PDFs into one—locally, fast, and private."
+              hideDefaultSeo
+            >
+              <MergePdfsTool />
             </SeoPageLayout>
           )}
         />

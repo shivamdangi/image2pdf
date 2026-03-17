@@ -1,13 +1,21 @@
 import { useCallback, useMemo, useState } from 'react';
 
-const SUPPORTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+const SUPPORTED_TYPES = new Set(['image/jpeg', 'image/jpg', 'image/png', 'image/webp']);
+const SUPPORTED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+
+function isSupportedImage(file) {
+  const type = (file?.type || '').toLowerCase();
+  if (SUPPORTED_TYPES.has(type)) return true;
+  const name = (file?.name || '').toLowerCase();
+  return Array.from(SUPPORTED_EXTENSIONS).some((ext) => name.endsWith(ext));
+}
 
 export function useImageManager() {
   const [images, setImages] = useState([]);
 
   const addFiles = useCallback((fileList) => {
     const files = Array.from(fileList || []);
-    const validFiles = files.filter((file) => SUPPORTED_TYPES.includes(file.type));
+    const validFiles = files.filter((file) => isSupportedImage(file));
 
     const newItems = validFiles.map((file) => ({
       id: `${file.name}-${file.lastModified}-${Math.random().toString(36).slice(2, 8)}`,

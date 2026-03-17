@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, NavLink } from 'react-router-dom';
-import { FileText } from 'lucide-react';
+import BrandMark from './brand/BrandMark';
 
 const BASE_URL = 'https://image2pdf-xi.vercel.app';
 
@@ -29,10 +29,8 @@ function getSoftwareSchema({ name, description, path }) {
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/image-to-pdf', label: 'Image to PDF' },
-  { to: '/jpg-to-pdf', label: 'JPG to PDF' },
-  { to: '/png-to-pdf', label: 'PNG to PDF' },
-  { to: '/webp-to-pdf', label: 'WEBP to PDF' },
-  { to: '/merge-images-to-pdf', label: 'Merge Images to PDF' },
+  { to: '/pdf-to-images', label: 'PDF to Images' },
+  { to: '/merge-pdfs', label: 'Merge PDFs' },
 ];
 
 export default function SeoPageLayout({
@@ -41,6 +39,7 @@ export default function SeoPageLayout({
   canonicalPath,
   heading,
   toolLabel,
+  hideDefaultSeo = false,
   children,
 }) {
   const canonicalUrl = buildCanonical(canonicalPath);
@@ -65,23 +64,21 @@ export default function SeoPageLayout({
 
       <div className="app-shell">
         <header className="app-header">
-          <div className="header-card">
-            <div className="title-wrap">
-              <div className="header-icon">
-                <FileText size={20} />
-              </div>
-              <div>
-                <h1>{heading}</h1>
-                <p>{toolLabel}</p>
-              </div>
-            </div>
-            <nav className="header-nav">
+          <div className="topbar">
+            <Link to="/" className="brand">
+              <span className="brand-wordmark">
+                <BrandMark variant="wordmark" />
+              </span>
+              <span className="sr-only">PDF &amp; Image Toolkit</span>
+            </Link>
+
+            <nav className="topnav" aria-label="Primary">
               {navLinks.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `header-link${isActive ? ' header-link-active' : ''}`
+                    `topnav-link${isActive ? ' topnav-link-active' : ''}`
                   }
                   end={item.to === '/'}
                 >
@@ -90,11 +87,18 @@ export default function SeoPageLayout({
               ))}
             </nav>
           </div>
+
+          <div className="page-head">
+            <h1 className="page-title">{heading}</h1>
+            {toolLabel ? <p className="page-subtitle">{toolLabel}</p> : null}
+          </div>
         </header>
 
         <main className="app-main-with-seo">
           {children}
 
+          {!hideDefaultSeo && (
+          <>
           <section className="seo-section">
             <h2>How to Convert Images to PDF</h2>
             <p>
@@ -191,38 +195,26 @@ export default function SeoPageLayout({
               tool, and download your PDF in seconds.
             </p>
           </section>
+          </>
+          )}
         </main>
 
         <footer className="app-footer">
-          <div className="footer-inner">
-            <div className="footer-brand">
-              <Link to="/" className="footer-logo">
-                <FileText size={18} />
-                <span>Image to PDF</span>
-              </Link>
-              <p className="footer-copy">
-                Convert images to PDF instantly in your browser. No uploads, no signup.
+          <div className="footer-inner footer-min">
+            <div>
+              <p className="footer-copy" style={{ margin: 0 }}>
+                Local-first PDF & image tools. Files never leave your device.
+              </p>
+              <p className="footer-copy" style={{ margin: '0.35rem 0 0' }}>
+                © {new Date().getFullYear()} PDF & Image Toolkit
               </p>
             </div>
-            <nav className="footer-nav">
-              <h3>Tools</h3>
-              <ul>
-                <li>
-                  <Link to="/image-to-pdf">Image to PDF</Link>
-                </li>
-                <li>
-                  <Link to="/jpg-to-pdf">JPG to PDF</Link>
-                </li>
-                <li>
-                  <Link to="/png-to-pdf">PNG to PDF</Link>
-                </li>
-                <li>
-                  <Link to="/webp-to-pdf">WEBP to PDF</Link>
-                </li>
-                <li>
-                  <Link to="/merge-images-to-pdf">Merge Images to PDF</Link>
-                </li>
-              </ul>
+
+            <nav className="footer-links" aria-label="Footer">
+              <Link to="/">Home</Link>
+              <Link to="/image-to-pdf">Image → PDF</Link>
+              <Link to="/pdf-to-images">PDF → Images</Link>
+              <Link to="/merge-pdfs">Merge PDFs</Link>
             </nav>
           </div>
         </footer>

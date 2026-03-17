@@ -6,7 +6,7 @@ export default {
       colors: {
         appBg: '#F5F7FA',
         cardBg: '#FFFFFF',
-        accent: '#2563EB',
+        accent: '#C2410C',
         border: '#E5E7EB',
         text: '#111827',
         muted: '#6B7280',
