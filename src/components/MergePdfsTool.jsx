@@ -12,10 +12,25 @@ export default function MergePdfsTool() {
   const [items, setItems] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const [error, setError] = useState('');
+  const [pdfNameInput, setPdfNameInput] = useState('');
   const inputRef = useRef(null);
   const dragIndexRef = useRef(null);
 
   const totalSize = useMemo(() => items.reduce((sum, it) => sum + it.file.size, 0), [items]);
+
+  const getPdfFileName = () => {
+    let name = pdfNameInput.trim();
+
+    if (!name) {
+      name = `merged-${new Date().toISOString().slice(0, 10)}`;
+    }
+
+    if (!name.toLowerCase().endsWith('.pdf')) {
+      name = `${name}.pdf`;
+    }
+
+    return name;
+  };
 
   const addFiles = (fileList) => {
     const files = Array.from(fileList || []).filter((f) => f.type === 'application/pdf');
@@ -66,7 +81,7 @@ export default function MergePdfsTool() {
       }
 
       const outBytes = await merged.save();
-      const outName = `merged-${new Date().toISOString().slice(0, 10)}.pdf`;
+      const outName = getPdfFileName();
       downloadBlob(new Blob([outBytes], { type: 'application/pdf' }), outName);
     } catch (e) {
       setError(e?.message || 'Failed to merge PDFs.');
@@ -179,6 +194,28 @@ export default function MergePdfsTool() {
             <span>Total size</span>
             <strong>{formatTotalSize(totalSize)}</strong>
           </div>
+        </div>
+
+        <div className="mb-3">
+          <label
+            htmlFor="merge-pdf-file-name"
+            style={{
+              display: 'block',
+              fontSize: '0.85rem',
+              color: 'var(--muted)',
+              marginBottom: '0.25rem',
+            }}
+          >
+            Merged PDF file name
+          </label>
+          <input
+            id="merge-pdf-file-name"
+            type="text"
+            value={pdfNameInput}
+            onChange={(event) => setPdfNameInput(event.target.value)}
+            placeholder="e.g. combined-documents"
+            className="subtle-input"
+          />
         </div>
 
         <button
